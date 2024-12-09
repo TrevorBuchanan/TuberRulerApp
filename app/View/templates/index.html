@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="background-section">
+    {% if title %}
+    <h2 class="title"> Welcome to {{ title }}</h2>
+    {% else %}
+    <h2 class="title">Welcome to Tuber Ruler</h2>
+    {% endif %}
+
+
+</div>
+{% endblock %}

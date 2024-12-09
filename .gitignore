@@ -1,0 +1,20 @@
+# Python bytecode
+*.pyc
+__pycache__/
+
+# Virtual environment
+.venv/
+.idea
+
+# Distribution files
+dist/
+build/
+*.egg-info/
+
+# Testing artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Instance folder
+instance/

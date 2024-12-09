@@ -1,0 +1,96 @@
+.flash-container {
+    position: fixed;
+    width: 80%;
+    bottom: 10px;
+    padding: 1rem;
+    padding-left: 2rem;
+    color: #34534f7b;
+    border: 1px solid #283c39;
+    border-radius: 5px;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    /* Adjust duration for fade-out effect */
+}
+
+.flash-container.fade-out {
+    opacity: 0;
+}
+
+.registerLinksContainer {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: nowrap;
+}
+
+.registerLink {
+    flex: 1 1 20%;
+    max-width: 300px;
+    margin: 0.5rem;
+    background-color: rgb(246, 246, 246);
+    text-align: center;
+    border-radius: 10px;
+    border: 2px solid rgb(217, 217, 217);
+    text-decoration: none;
+    padding: 1rem;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.registerLink h2,
+.registerLink p {
+    margin: 0.5rem 0;
+}
+
+.registerLink:hover {
+    background-color: rgb(230, 230, 230);
+    border-color: rgb(180, 180, 180);
+    color: #34534F;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #34534F;
+}
+
+/* Responsive: stack vertically on narrow screens */
+@media (max-width: 600px) {
+    .registerLinksContainer {
+        flex-direction: column;
+        /* Stack items vertically */
+        align-items: center;
+        /* Center-align for a clean look */
+    }
+
+    .registerLink {
+        flex: none;
+        /* Remove flexible sizing */
+        width: 100%;
+        /* Full width of container */
+        max-width: 90%;
+        /* Optionally limit max width on very narrow screens */
+    }
+}
+
+.background-section {
+    background-image: url('../images/background.png');
+    background-size: cover; /* Ensures the image covers the entire area */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    height: 200px; /* Adjust height as needed */
+    width: 100%; /* Full width of the container */
+    border-radius: 10px;
+    align-content: center;
+}
+
+.background-section .title {
+    color: white; /* Text color */
+    font-size: 5rem; /* Size of the title */
+    text-align: center; /* Center the text */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.632);
+}
