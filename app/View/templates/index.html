@@ -3,11 +3,62 @@
 {% block app_content %}
 <div class="background-section">
     {% if title %}
-    <h2 class="title"> Welcome to {{ title }}</h2>
+    <h2 class="title"> {{ title }}</h2>
     {% else %}
-    <h2 class="title">Welcome to Tuber Ruler</h2>
+    <h2 class="title">Tuber Ruler</h2>
     {% endif %}
-
-
 </div>
+
+<div class="imageSection">
+    {% if camera_capture_enabled %}
+        <div> Camera capture is not available </div>
+        <button class="capture-icon"></button>
+        <a href="{{ url_for('routes.index') }}" class="cancel"> Cancel </a>
+    {% elif image_filename %}
+        <img src="{{ url_for('routes.uploaded_file', filename=image_filename) }}" alt="Uploaded Image" class="image" />
+    {% else %}
+        <p>No image detected. Please upload or capture an image.</p>
+    {% endif %}
+</div>
+
+<div class="mainLinksContainer">
+    <!-- Link to Open Camera -->
+    <a href="{{ url_for('routes.open_camera') }}">
+        <div class="mainLink">
+            <i class="bi bi-camera" style="font-size: 2rem;"></i>
+        </div>        
+    </a>
+
+    <!-- Link to Upload Photo -->
+    <form action="{{ url_for('routes.upload') }}" method="POST" enctype="multipart/form-data">
+        <div class="mainLink" onclick="document.getElementById('file').click()">
+            <i class="bi bi-upload" style="font-size: 2rem;"></i>
+        </div>
+        <input type="file" id="file" name="file" accept="image/*" style="display: none;" onchange="this.form.submit()">
+    </form>
+
+    <!-- Link to GO -->
+    <a href="{{ url_for('routes.go') }}">
+        <div class="mainLink">
+            <span>GO!</span>
+        </div>
+    </a>
+</div>
+
+
+<script>
+    // JavaScript to add the 'loaded' class once the image is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        var img = document.querySelector('.imageSection img');
+        if (img) {
+            img.onload = function() {
+                img.classList.add('loaded');
+            };
+            // If the image is already in cache, trigger the 'loaded' class immediately
+            if (img.complete) {
+                img.classList.add('loaded');
+            }
+        }
+    });
+</script>
 {% endblock %}
