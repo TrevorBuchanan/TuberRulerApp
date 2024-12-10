@@ -14,6 +14,8 @@
         <div> Camera capture is not available </div>
         <button class="capture-icon"></button>
         <a href="{{ url_for('routes.index') }}" class="cancel"> Cancel </a>
+    {% elif result_filename %}
+        <img src="{{ url_for('routes.result_file', filename=result_filename) }}" alt="Result Image" class="image" />
     {% elif image_filename %}
         <img src="{{ url_for('routes.uploaded_file', filename=image_filename) }}" alt="Uploaded Image" class="image" />
     {% else %}
@@ -38,11 +40,26 @@
     </form>
 
     <!-- Link to GO -->
-    <a href="{{ url_for('routes.go') }}">
+    <a href="{{ url_for('routes.go', filename=image_filename) }}">
         <div class="mainLink">
             <span>GO!</span>
         </div>
     </a>
+</div>
+
+<div>
+    <h3>
+        Results:
+    </h3>
+    <div>
+        {% if potato_results %}
+            <table>
+                
+            </table>
+        {% else %}
+            <p> No results </p>
+        {% endif %}
+    </div>
 </div>
 
 

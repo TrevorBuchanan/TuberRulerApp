@@ -9,3 +9,4 @@ class Config:
     STATIC_FOLDER = os.path.join(basedir, 'app', 'View', 'static')
     TEMPLATE_FOLDER = os.path.join(basedir, 'app', 'View', 'templates')
     UPLOAD_FOLDER = os.path.join(basedir, 'app', 'View', 'uploads')
+    RESULT_FOLDER = os.path.join(basedir, 'app', 'View', 'results')
