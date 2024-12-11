@@ -48,8 +48,8 @@
 <!--                <li><a href="#"> Temp </a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><img src="{{ url_for('static', filename='images/action_history_icon.png') }}" alt="Action History Icon" class="navLink"></a></li>
-                <li><a href="#"><img src="{{ url_for('static', filename='images/action_settings_icon.png') }}" alt="Action Settings Icon" class="navLink"></a></li>
+                <li><a href="{{ url_for('routes.history') }}"><img src="{{ url_for('static', filename='images/action_history_icon.png') }}" alt="Action History Icon" class="navLink"></a></li>
+                <li><a href="{{ url_for('routes.settings') }}"><img src="{{ url_for('static', filename='images/action_settings_icon.png') }}" alt="Action Settings Icon" class="navLink"></a></li>
             </ul>
         </div>
     </div>

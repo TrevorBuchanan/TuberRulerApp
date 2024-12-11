@@ -1,67 +1,95 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<div class="background-section">
-    {% if title %}
-    <h2 class="title"> {{ title }}</h2>
-    {% else %}
-    <h2 class="title">Tuber Ruler</h2>
-    {% endif %}
-</div>
-
-<div class="imageSection">
-    {% if camera_capture_enabled %}
-        <div> Camera capture is not available </div>
-        <button class="capture-icon"></button>
-        <a href="{{ url_for('routes.index') }}" class="cancel"> Cancel </a>
-    {% elif result_filename %}
-        <img src="{{ url_for('routes.result_file', filename=result_filename) }}" alt="Result Image" class="image" />
-    {% elif image_filename %}
-        <img src="{{ url_for('routes.uploaded_file', filename=image_filename) }}" alt="Uploaded Image" class="image" />
-    {% else %}
-        <p>No image detected. Please upload or capture an image.</p>
-    {% endif %}
-</div>
-
-<div class="mainLinksContainer">
-    <!-- Link to Open Camera -->
-    <a href="{{ url_for('routes.open_camera') }}">
-        <div class="mainLink">
-            <i class="bi bi-camera" style="font-size: 2rem;"></i>
-        </div>        
-    </a>
-
-    <!-- Link to Upload Photo -->
-    <form action="{{ url_for('routes.upload') }}" method="POST" enctype="multipart/form-data">
-        <div class="mainLink" onclick="document.getElementById('file').click()">
-            <i class="bi bi-upload" style="font-size: 2rem;"></i>
-        </div>
-        <input type="file" id="file" name="file" accept="image/*" style="display: none;" onchange="this.form.submit()">
-    </form>
-
-    <!-- Link to GO -->
-    <a href="{{ url_for('routes.go', filename=image_filename) }}">
-        <div class="mainLink">
-            <span>GO!</span>
-        </div>
-    </a>
-</div>
-
-<div>
-    <h3>
-        Results:
-    </h3>
-    <div>
-        {% if potato_results %}
-            <table>
-                
-            </table>
+<div class="page-content">
+    <div class="background-section">
+        {% if title %}
+        <h2 class="title"> {{ title }}</h2>
         {% else %}
-            <p> No results </p>
+        <h2 class="title">Tuber Ruler</h2>
         {% endif %}
     </div>
-</div>
 
+    <div class="imageSection">
+        {% if camera_capture_enabled %}
+            <div> Camera capture is not available. </div>
+            <button class="capture-icon"></button>
+            <a href="{{ url_for('routes.index') }}" class="cancel"> Cancel </a>
+        {% elif result_filename %}
+            <img src="{{ url_for('routes.result_file', filename=result_filename) }}" alt="Result Image" class="image" />
+        {% elif image_filename %}
+            <img src="{{ url_for('routes.uploaded_file', filename=image_filename) }}" alt="Uploaded Image" class="image" />
+        {% else %}
+            <p>No image detected. Please upload or capture an image.</p>
+        {% endif %}
+    </div>
+
+    <div class="mainLinksContainer">
+        <!-- Link to Open Camera -->
+        <a href="{{ url_for('routes.open_camera') }}">
+            <div class="mainLink">
+                <i class="bi bi-camera" style="font-size: 2rem;"></i>
+            </div>        
+        </a>
+
+        <!-- Link to Upload Photo -->
+        <form action="{{ url_for('routes.upload') }}" method="POST" enctype="multipart/form-data">
+            <div class="mainLink" onclick="document.getElementById('file').click()">
+                <i class="bi bi-upload" style="font-size: 2rem;"></i>
+            </div>
+            <input type="file" id="file" name="file" accept="image/*" style="display: none;" onchange="this.form.submit()">
+        </form>
+
+        <!-- Link to GO -->
+        <a href="{{ url_for('routes.go', filename=image_filename) }}">
+            <div class="mainLink">
+                <span>GO!</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="container mt-5">
+        <h3 class="text-center mb-4">Potato Data Summary</h3>
+        <div class="results">
+            {% if potato_list | length > 0 and num_potatoes and min_len_wid and max_len_wid and average_len_wid %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p><strong>Number of Potatoes:</strong> {{ num_potatoes }}</p>
+                        <p><strong>Min Dimension:</strong> {{ min_len_wid }} cm</p>
+                        <p><strong>Max Dimension:</strong> {{ max_len_wid }} cm</p>
+                        <p><strong>Average Dimension:</strong> {{ average_len_wid }} cm</p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Potato #</th>
+                                <th>Length (cm)</th>
+                                <th>Width (cm)</th>
+                                <th>L/W Ratio </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for potato in potato_list %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ potato[0] }}</td>  <!-- Length -->
+                                    <td>{{ potato[1] }}</td>  <!-- Width -->
+                                    <td>{{ potato[2] }}</td>  <!-- Ratio -->
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    No potato data available.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 <script>
     // JavaScript to add the 'loaded' class once the image is loaded
